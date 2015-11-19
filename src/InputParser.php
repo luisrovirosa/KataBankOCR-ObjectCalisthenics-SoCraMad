@@ -30,6 +30,7 @@ class InputParser
     public function parse($input)
     {
         $digits = $this->digitParser->parse($input);
-        $this->numberFactory->buildFrom($digits);
+
+        return $this->numberFactory->buildFrom($digits);
     }
 }

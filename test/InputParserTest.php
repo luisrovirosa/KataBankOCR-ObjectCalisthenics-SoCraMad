@@ -12,7 +12,7 @@ use Prophecy\Argument;
 
 class InputParserTest extends \PHPUnit_Framework_TestCase
 {
-
+    // TODO: Setup
     /** @test */
     public function should_parse_input_lines()
     {
@@ -40,7 +40,6 @@ class InputParserTest extends \PHPUnit_Framework_TestCase
         $inputParser = new InputParser($digitParser, $numberFactory);
 
         $inputParser->parse($this->stringNumber123456789());
-
         $digitParserProphecy->parse($this->stringNumber123456789())->shouldHaveBeenCalled();
     }
 

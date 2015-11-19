@@ -10,7 +10,7 @@ use KataBank\Number;
 use KataBank\NumberFactory;
 use Prophecy\Argument;
 
-class InputParserTest extends \PHPUnit_Framework_TestCase
+class InputParserTest extends BaseTest
 {
     // TODO: Setup
     /** @test */
@@ -29,7 +29,7 @@ class InputParserTest extends \PHPUnit_Framework_TestCase
     public function should_use_the_digit_parser()
     {
         $digitParserProphecy = $this->prophesize('KataBank\DigitParser');
-        $digits = new Digits();
+        $digits = new Digits([]);
         $digitParserProphecy->parse(Argument::any())->willReturn($digits);
 
         /** @var DigitParser $digitParser */
@@ -47,7 +47,7 @@ class InputParserTest extends \PHPUnit_Framework_TestCase
     public function should_use_the_number_factory()
     {
         $digitParserProphecy = $this->prophesize('KataBank\DigitParser');
-        $digits = new Digits();
+        $digits = new Digits([]);
         $digitParserProphecy->parse(Argument::any())->willReturn($digits);
         /** @var DigitParser $digitParser */
         $digitParser = $digitParserProphecy->reveal();
@@ -62,15 +62,4 @@ class InputParserTest extends \PHPUnit_Framework_TestCase
         $numberFactoryProphecy->buildFrom($digits)->shouldHaveBeenCalled();
     }
 
-    /**
-     * @return string
-     */
-    private function stringNumber123456789()
-    {
-        return
-            "    _  _     _  _  _  _  _ \n" .
-            "  | _| _||_||_ |_   ||_||_|\n" .
-            "  ||_  _|  | _||_|  ||_| _|\n" .
-            "                           \n ";
-    }
 }

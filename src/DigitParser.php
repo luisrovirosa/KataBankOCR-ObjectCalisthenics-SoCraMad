@@ -4,6 +4,8 @@ namespace KataBank;
 
 class DigitParser
 {
+    const LENGTH_OF_DIGIT = 3;
+
     /**
      * @param $numberAsString
      * @return Digits
@@ -12,7 +14,7 @@ class DigitParser
     {
         $digits = array();
         $lines = explode("\n", $numberAsString);
-        $numberOfDigits = strlen($lines[0]) / 3;
+        $numberOfDigits = strlen($lines[0]) / self::LENGTH_OF_DIGIT;
         for ($i = 0; $i < $numberOfDigits; $i++) {
             $digits[] = new Digit($this->parseDigit($lines, $i));
         }
@@ -37,12 +39,16 @@ class DigitParser
 
     /**
      * @param $lines
-     * @param $i
+     * @param $positionOfDigit
      * @param $numberOfLine
      * @return string
      */
-    private function parseDigitLine($lines, $i, $numberOfLine)
+    private function parseDigitLine($lines, $positionOfDigit, $numberOfLine)
     {
-        return substr($lines[$numberOfLine], $i * 3, 3);
+        return substr(
+            $lines[$numberOfLine],
+            $positionOfDigit * self::LENGTH_OF_DIGIT,
+            self::LENGTH_OF_DIGIT
+        );
     }
 }

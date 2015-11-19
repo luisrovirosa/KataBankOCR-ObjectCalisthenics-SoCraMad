@@ -8,14 +8,19 @@ class InputParser
      * @var DigitParser
      */
     private $digitParser;
+    /**
+     * @var NumberFactory
+     */
+    private $numberFactory;
 
     /**
      * InputParser constructor.
      * @param DigitParser $parser
      */
-    public function __construct(DigitParser $parser)
+    public function __construct(DigitParser $parser, NumberFactory $numberFactory)
     {
         $this->digitParser = $parser;
+        $this->numberFactory = $numberFactory;
     }
 
     /**
@@ -24,6 +29,7 @@ class InputParser
      */
     public function parse($input)
     {
-        $this->digitParser->parse($input);
+        $digits = $this->digitParser->parse($input);
+        $this->numberFactory->buildFrom($digits);
     }
 }

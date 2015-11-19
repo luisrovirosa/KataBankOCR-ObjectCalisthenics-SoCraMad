@@ -14,14 +14,35 @@ class DigitParser
         $lines = explode("\n", $numberAsString);
         $numberOfDigits = strlen($lines[0]) / 3;
         for ($i = 0; $i < $numberOfDigits; $i++) {
-            $rawDigit = substr($lines[0], $i * 3, 3);
-            $rawDigit .= substr($lines[1], $i * 3, 3);
-            $rawDigit .= substr($lines[2], $i * 3, 3);
-            $rawDigit .= substr($lines[3], $i * 3, 3);
-            $digit = new Digit($rawDigit);
-            $digits[] = $digit;
+            $digits[] = new Digit($this->parseDigit($lines, $i));
         }
 
         return new Digits($digits);
+    }
+
+    /**
+     * @param $lines
+     * @param $positionOfDigit
+     * @return string
+     */
+    private function parseDigit($lines, $positionOfDigit)
+    {
+        $rawDigit = '';
+        for ($i = 0; $i < 4; $i++) {
+            $rawDigit .= $this->parseDigitLine($lines, $positionOfDigit, $i);
+        }
+
+        return $rawDigit;
+    }
+
+    /**
+     * @param $lines
+     * @param $i
+     * @param $numberOfLine
+     * @return string
+     */
+    private function parseDigitLine($lines, $i, $numberOfLine)
+    {
+        return substr($lines[$numberOfLine], $i * 3, 3);
     }
 }
